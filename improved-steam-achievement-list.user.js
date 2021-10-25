@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name     Improved Steam Achievement List
-// @version  0.1
+// @version  0.2
 // @author   Xiyng
 // @include  https://steamcommunity.com/id/*/stats/*
 // @run-at   document-end
@@ -11,10 +11,16 @@ addSortButton();
 
 function addSortButton() {
     const globalStatsLinkElement = document.querySelector("#topSummaryLeft a");
+    const container = globalStatsLinkElement.parentNode;
+    const sortButtonClass = "sort";
+    if (container.getElementsByClassName(sortButtonClass).length > 0) {
+        return;
+    }
     const sortButton = document.createElement("a");
+    sortButton.className = sortButtonClass;
     sortButton.textContent = "Sort by date";
     sortButton.addEventListener("click", handleSortButtonClickEvent);
-    globalStatsLinkElement.parentNode.append(sortButton);
+    container.append(sortButton);
 }
 
 function handleSortButtonClickEvent(event) {
